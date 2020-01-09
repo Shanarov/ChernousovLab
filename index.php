@@ -52,32 +52,36 @@
 
 
     var userName=prompt('Введите ваше имя');
-    alert('Тест состоит из 5 вопросов, на каждый дается 15 секунд. Нажмите ОК, чтобы начать тест');
+    //alert('Тест состоит из 5 вопросов, на каждый дается 15 секунд. Нажмите ОК, чтобы начать тест');
 
 
 	var startTime,                       //время начала теста
         time,                            //оставшееся время на вопрос
         timer,
+        questionCount;
         frm=document.getElementById('questionForm'), //форма вопроса
         questionNumber,                  //номер текущего вопроса
         answerArray=[];                  //массив введенных пользователем ответов
+
 
     function showResults()
 	{
         var rightAnswers=0,                 //количество правильных ответов
             endTime= new Date,              //время окончания теста
             totalTime=endTime-startTime;    //время, затраченное на прохождение теста (в миллисекундах)
-        for(var i=0; i<5; i++) {
-            if (answerArray[i]==questionsArray[i][1]) rightAnswers++;
-        }
+
         var mark= rightAnswers<3 ? 2 : rightAnswers; //оценка
         alert(userName+', вы сдали тест на '+rightAnswers+' из 5 за время '+
             Math.floor(totalTime/1000/60)+'мин. '+Math.round(totalTime/1000%60)+'сек.');
     }
+
     function closeQuestion(answer) {
         frm.style.display='none';
         clearInterval(timer);
-        answerArray[questionNumber]=answer;
+        if (answer == questionsArray[questionNumber][1]){
+          rightAnswers++;
+        }
+
         if(questionNumber==4) {
             showResults();
         } else {
@@ -85,6 +89,7 @@
             showQuestion(questionNumber);
         }
     }
+
     function setTime() {
         var downcountElement=document.getElementById('downcount'); //
         downcountElement.innerHTML=time;
@@ -94,6 +99,7 @@
         };
         time--;
     }
+
     function showQuestion(questionNumber)
 	  {
         var question=document.getElementById('question');
@@ -109,10 +115,9 @@
       var rad=document.getElementsByName('radioBTN');
       for (var i=0;i<rad.length; i++) {
         if (rad[i].checked) {
-          alert('Выбран '+i+' radiobutton');
+          closeQuestion(questionsArray[questionNumber][i+2]);
         }
       }
-      closeQuestion('Да');
     }
 
     startTime= new Date;
