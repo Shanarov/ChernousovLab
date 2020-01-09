@@ -75,6 +75,7 @@
             Math.floor(totalTime/1000/60)+'мин. '+Math.round(totalTime/1000%60)+'сек.');
     }
 
+<<<<<<< HEAD
     function closeQuestion(answer)
     {
         frm.style.display='none';
@@ -86,6 +87,16 @@
 
         if(questionNumber==4)
         {
+=======
+    function closeQuestion(answer) {
+        frm.style.display='none';
+        clearInterval(timer);
+        if (answer == questionsArray[questionNumber][1]){
+          rightAnswers++;
+        }
+
+        if(questionNumber==4) {
+>>>>>>> 6eb4f59f8ed050f7fae99cd706c33455b803db99
             showResults();
         } else
         {
@@ -118,10 +129,15 @@
     document.getElementById('gotBTN').onclick=function()
 	  {
       var rad=document.getElementsByName('radioBTN');
+<<<<<<< HEAD
       for (var i=0;i<rad.length; i++)
       {
         if (rad[i].checked)
         {
+=======
+      for (var i=0;i<rad.length; i++) {
+        if (rad[i].checked) {
+>>>>>>> 6eb4f59f8ed050f7fae99cd706c33455b803db99
           closeQuestion(questionsArray[questionNumber][i+2]);
         }
       }
